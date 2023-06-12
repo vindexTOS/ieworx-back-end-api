@@ -10,7 +10,7 @@ export const login = async (req, res) => {
     const user = await adminSchema.findOne({ email: email })
 
     if (!user) {
-      return res.status(400).json({ msg: 'User Not Found' })
+      return res.status(400).json({ msg: 'Email not found' })
     }
     const isPasswordValid = await bcrypt.compare(password, user.password)
 

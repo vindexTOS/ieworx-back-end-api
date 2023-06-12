@@ -1,9 +1,9 @@
 import express from 'express'
-
-import { sendEmail } from '../controllers/email-controller.js'
+import { AuthMiddleWare } from '../../Admin_API/MiddleWare/AdminAuthMiddle.js'
+import { sendEmail, getEmails } from '../controllers/email-controller.js'
 
 const contactRoute = express.Router()
 
-contactRoute.route('/contact').post(sendEmail)
+contactRoute.route('/contact').post(sendEmail).get(AuthMiddleWare, getEmails)
 
 export default contactRoute
