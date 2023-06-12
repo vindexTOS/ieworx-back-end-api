@@ -3,27 +3,27 @@ import mongoose from 'mongoose'
 const emailSchema = new mongoose.Schema({
   name: {
     type: String,
-    requrie: true,
+    required: true,
     trim: true,
   },
   email: {
     type: String,
-    require: true,
+    required: true,
     trim: true,
   },
   number: {
     type: String,
-    requrie: true,
+    required: true,
     trim: true,
   },
   activity: {
     type: String,
-    requrie: true,
+    required: true,
     trim: true,
   },
   message: {
     type: String,
-    requrie: true,
+    required: true,
     trim: true,
   },
 })
