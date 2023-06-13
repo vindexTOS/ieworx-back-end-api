@@ -26,6 +26,10 @@ const emailSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  date: {
+    type: Date,
+    default: Date(),
+  },
 })
 
 // example json data for testing with postman

@@ -18,7 +18,6 @@ export const sendEmail = async (req, res) => {
 
 export const getEmails = async (req, res) => {
   const search = req.query.search
-  // predecation logic for pages
   const page = parseInt(req.query.page) || 1
   const limit = parseInt(req.query.limit) || 10
   const startIndex = (page - 1) * limit
@@ -26,20 +25,32 @@ export const getEmails = async (req, res) => {
   let query = {}
 
   if (search) {
-    query = {
-      $or: [
-        {
-          email: { $regex: search, $options: 'i' },
-          name: { $regex: search, $options: 'i' },
-          number: { $regex: search, $options: 'i' },
-          activity: { $regex: search, $options: 'i' },
-          message: { $regex: search, $options: 'i' },
-        },
-      ],
+    const searchType = req.query.searchType
+
+    if (searchType === 'number') {
+      query = {
+        number: { $regex: search, $options: 'i' },
+      }
+    } else if (searchType === 'name') {
+      query = {
+        name: { $regex: search, $options: 'i' },
+      }
+    } else if (searchType === 'activity') {
+      query = {
+        activity: { $regex: search, $options: 'i' },
+      }
+    } else if (searchType === 'message') {
+      query = {
+        message: { $regex: search, $options: 'i' },
+      }
+    } else {
+      query = {
+        email: { $regex: search, $options: 'i' },
+      }
     }
   }
 
-  const totalEmail = emailData.countDocuments(query)
+  const totalEmail = await emailSchema.countDocuments(query)
   const totalPages = Math.ceil(totalEmail / limit)
 
   try {

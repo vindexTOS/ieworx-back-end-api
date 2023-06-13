@@ -20,7 +20,7 @@ export const login = async (req, res) => {
 
     user.password = null
 
-    const token = jwt.sign({ user }, process.env.JTW_STRING, {
+    const token = jwt.sign({ user }, process.env.JWT_STRING, {
       expiresIn: '1h',
     }) /// add JWT_STRING to .env and add random letters of your choise
 

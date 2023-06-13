@@ -12,7 +12,7 @@ const populate = async () => {
     const password = await bcrypt.hash('', 10) // input password of your choise as first parameter
     await adminSchema.create({
       email: '', // input email of your choise
-      password: password, /// encrypted password goes to database and can be de crepted on front end
+      password: password, /// encrypted password goes to database  
       role: 'admin', // leave role as an "admin" string
     })
     process.exit(0)
@@ -25,7 +25,7 @@ const populate = async () => {
 
 // <<<<<<<<<<<<<<<<<<<<<<starting registration>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // stop terminal if its running with Ctrl & C
-// type npm nodemon populate.js or yarn nodemon populate.js
+// type npm nodemon registerAdmin.js or yarn nodemon  registerAdmin.js
 // check database
 // Ctrl & C
 // comment populate()
