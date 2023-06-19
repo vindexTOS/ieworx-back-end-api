@@ -1,4 +1,4 @@
-import emailSchema from '../moduls/email-schema.js'
+import emailSchema from '../models/email-schema.js'
 
 export const sendEmail = async (req, res) => {
   const { name, email, number, message, activity } = req.body

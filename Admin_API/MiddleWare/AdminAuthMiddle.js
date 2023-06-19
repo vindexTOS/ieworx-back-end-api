@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import adminSchema from '../moduls/admin-schema.js'
+import adminSchema from '../models/admin-schema.js'
 import { config } from 'dotenv'
 config()
 const verifyToken = async (token) => {

@@ -1,4 +1,4 @@
-import adminSchema from '../moduls/admin-schema.js'
+import adminSchema from '../models/admin-schema.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import { config } from 'dotenv'
