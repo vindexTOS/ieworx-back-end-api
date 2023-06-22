@@ -1,3 +1,4 @@
+```javascript
 ## ADMIN ROUTES
 
 ### route '/admin/login/'  (POST method, status 200)
@@ -6,7 +7,7 @@
 
 ### route '/email/contact/'  (GET method, status 200)
 **Query**: 
-```javascript
+
 const queryParams = new URLSearchParams({
   page: page,
   limit: limit,
