@@ -55,10 +55,63 @@ export const Register = async (req, res) => {
       fullName,
       avatar,
     })
-    return res.status(200).json({ msg: 'user created' })
+
+    const user = await userSchema.findOne({ email: email })
+
+    user.password = null
+    const token = jwt.sign({ user }, process.env.JWT_STRING, {
+      expiresIn: '2 days',
+    })
+
+    res.set('Authorization', `Bearer ${token}`)
+    if (user) {
+      return res.status(200).json({ token, user })
+    } else if (!user) {
+      return res.status(201).json({ message: 'Try to sign in' })
+    }
   } catch (error) {
     console.log(error)
     return res.status(500).json({ msg: 'Server Error', error: error.message })
+  }
+}
+
+export const Login = async (req, res) => {
+  const { email, password } = req.body
+
+  try {
+    const user = await userSchema.find({ email: email })
+
+    if (!user) {
+      return res.status(400).json({ msg: 'User Does Not Exists' })
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password)
+
+    if (!isPasswordValid) {
+      return res.status(400).json({ msg: 'Password Invalid' })
+    }
+
+    user.password = null
+    const token = jwt.sign({ user }, process.env.JWT_STRING, {
+      expiresIn: '2 days',
+    })
+
+    res.set('Authorization', `Bearer ${token}`)
+    return res.status(200).json({ token, user })
+  } catch (error) {
+    return res.status(500).json({ msg: 'Internal Server Error', error })
+  }
+}
+
+// for admins only
+
+export const GetUserInformation = async (req, res) => {
+  try {
+    const users = await userSchema.find({})
+
+    return res.status(200).json(users)
+  } catch (error) {
+    return res.status(500).json({ msg: 'Internal Server Error', error })
   }
 }
 

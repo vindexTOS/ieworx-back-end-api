@@ -1,5 +1,10 @@
 import express from 'express'
-import { Register } from '../controllers/user-controller.js'
+import {
+  Register,
+  Login,
+  GetUserInformation,
+} from '../controllers/user-controller.js'
+import { AuthMiddleWare } from '../../Admin_API/MiddleWare/AdminAuthMiddle.js'
 import { registerMiddleware, upload } from '../controllers/user-middleware.js'
 import {
   googleAuth,
@@ -16,7 +21,9 @@ userRouter.post(
   registerMiddleware,
   Register,
 )
-
+userRouter.route('/login').post(Login)
+// getting user for admins only
+userRouter.route('/userGet').get(AuthMiddleWare, GetUserInformation)
 /// google auth
 userRouter.get('/', googleAuthRedirect)
 userRouter.get('/google', googleAuth)
