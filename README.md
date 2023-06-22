@@ -2,8 +2,8 @@ API documentation 1.0
 
 
 ``` 
-###ADMIN ROUTES
- ##route '/admin/login/  method  post status 200 : {token, user}  
+### ADMIN ROUTES
+ ## route '/admin/login/  method  post status 200 : {token, user}  
  body {password, email} 
 
 
