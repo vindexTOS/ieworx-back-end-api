@@ -23,10 +23,11 @@ const s3 = new S3Client({
 })
 
 export const Register = async (req, res) => {
-  const { password, email, userName, fullName, avatar } = req.body
-
+  const { password, email, userName, fullName } = req.body
+  let avatar = ''
   try {
     if (req.file) {
+      console.log(req.file)
       const fileExtension = req.file.originalname.split('.').pop()
       const fileName = `image_${Date.now()}.${fileExtension}`
 
@@ -41,8 +42,8 @@ export const Register = async (req, res) => {
       const { Location } = await s3.send(command) // getting URL from S3 bucket
 
       const photoURL = `https://${bucketName}.s3.eu-north-1.amazonaws.com/${fileName}` // manualy creating link
-      console.log(photoURL)
       avatar = photoURL
+      console.log(photoURL)
     }
 
     const HasshedPassword = await bcrypt.hash(password, 10)
@@ -54,7 +55,11 @@ export const Register = async (req, res) => {
       fullName,
       avatar,
     })
-  } catch (error) {}
+    return res.status(200).json({ msg: 'user created' })
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ msg: 'Server Error', error: error.message })
+  }
 }
 
 // google authnetication working in progess //////////////////////////

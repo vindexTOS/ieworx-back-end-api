@@ -1,15 +1,8 @@
 import userSchema from '../models/user-schema.js'
 import multer from 'multer'
 export const registerMiddleware = async (req, res, next) => {
-  const {
-    email,
-    password,
-    repetPassword,
-    userName,
-    fullName,
-    avatar,
-  } = req.body
-  console.log(req.body)
+  const { email, password, repetPassword, userName, fullName } = req.body
+
   try {
     const userExist = await userSchema.findOne({ email: email })
     if (userExist) {

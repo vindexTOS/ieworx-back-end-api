@@ -12,8 +12,8 @@ const userRouter = express.Router()
 // normal registration
 userRouter.post(
   '/register',
-
   upload.single('avatar'),
+  registerMiddleware,
   Register,
 )
 
